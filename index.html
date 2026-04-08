@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutZone | Accesorios de Fútbol</title>
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        :root {
+            --color-principal: #00b853; /* Verde césped */
+            --color-oscuro: #121212;
+            --color-claro: #f4f4f4;
+            --texto-blanco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-claro);
+            color: var(--color-oscuro);
+        }
+
+        /* --- NAVEGACIÓN --- */
+        header {
+            background-color: var(--color-oscuro);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--color-principal);
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: var(--texto-blanco);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-principal);
+        }
+
+        /* --- SLIDER PRINCIPAL --- */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 70vh; /* 70% del alto de la pantalla */
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Fondos con overlay oscuro para que resalte el texto */
+        .slide-zapatos { background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1511886929837-354d827aae26?auto=format&fit=crop&w=1600&q=80'); }
+        .slide-guantes { background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1587329310686-91414b8e3cb7?auto=format&fit=crop&w=1600&q=80'); }
+        .slide-tobilleras { background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1552667466-07770ae110d0?auto=format&fit=crop&w=1600&q=80'); }
+        .slide-pelotas { background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1600&q=80'); }
+        .slide-uniformes { background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1600&q=80'); }
+
+        .slide-content {
+            color: var(--texto-blanco);
+            padding: 20px;
+        }
+
+        .slide-content h2 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: var(--color-principal);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .slide-content p {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+        .btn-comprar {
+            background-color: var(--color-principal);
+            color: var(--color-oscuro);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+
+        .btn-comprar:hover {
+            background-color: #00e668;
+        }
+
+        /* --- PRODUCTOS DESTACADOS --- */
+        .productos-seccion {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .productos-seccion h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            color: var(--color-oscuro);
+        }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .producto-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .producto-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .producto-info {
+            padding: 20px;
+        }
+
+        .producto-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .producto-info .precio {
+            color: var(--color-principal);
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--color-oscuro);
+            color: var(--texto-blanco);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        /* Responsivo para móviles */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; }
+            .slide-content h2 { font-size: 2.2rem; }
+            .slide-content p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">FutZone</a>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Catálogo</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="slider-container">
+        <div class="slide slide-zapatos active">
+            <div class="slide-content">
+                <h2>Zapatos de Fútbol</h2>
+                <p>Tracción y velocidad en la cancha.</p>
+                <a href="#" class="btn-comprar">Ver Colección</a>
+            </div>
+        </div>
+        <div class="slide slide-guantes">
+            <div class="slide-content">
+                <h2>Guantes de Portero</h2>
+                <p>Agarre extremo y máxima protección.</p>
+                <a href="#" class="btn-comprar">Protégete</a>
+            </div>
+        </div>
+        <div class="slide slide-tobilleras">
+            <div class="slide-content">
+                <h2>Tobilleras</h2>
+                <p>Juega seguro, previene lesiones.</p>
+                <a href="#" class="btn-comprar">Equípate</a>
+            </div>
+        </div>
+        <div class="slide slide-pelotas">
+            <div class="slide-content">
+                <h2>Pelotas Oficiales</h2>
+                <p>Precisión en cada toque y disparo.</p>
+                <a href="#" class="btn-comprar">Comprar Balón</a>
+            </div>
+        </div>
+        <div class="slide slide-uniformes">
+            <div class="slide-content">
+                <h2>Uniformes</h2>
+                <p>Viste los colores de la victoria.</p>
